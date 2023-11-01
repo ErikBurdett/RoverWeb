@@ -11,7 +11,7 @@ users = {
 
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return render_template('Templates/login.html')
 
 @app.route('/login', methods=['POST'])
 def login():
