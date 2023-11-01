@@ -5,7 +5,7 @@ app = Flask(__name__)
 correct_username = "rover"
 correct_password = "rover"
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def login():
     if request.method == 'POST':
         username = request.form['username']
