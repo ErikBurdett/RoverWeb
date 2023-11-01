@@ -25,4 +25,4 @@ def login():
         return 'Login failed. Please check your username and password.'
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    index.run(debug=True)
