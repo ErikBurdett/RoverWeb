@@ -8,14 +8,6 @@ users = {
     'user2': 'password2',
 }
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    return 'About'
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
