@@ -6,7 +6,7 @@ socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('Templates/index.html')
 
 @socketio.on('connect', namespace='/login')
 def handle_connect():
