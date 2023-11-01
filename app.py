@@ -1,29 +1,29 @@
-from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+
+# In a real-world application, you should store user data securely, e.g., in a database.
+# For this example, we'll use a simple dictionary to store user information.
+users = {
+    'user1': 'password1',
+    'user2': 'password2',
+}
 
 @app.route('/')
-def index():
-    return render_template('Templates/index.html')
+def home():
+    return render_template('login.html')
 
-@socketio.on('connect', namespace='/login')
-def handle_connect():
-    print('Client connected')
+@app.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
 
-@socketio.on('login', namespace='/login')
-def handle_login(data):
-    username = data['username']
-    password = data['password']
-    # Add your authentication logic here
-    # For security, you should hash and salt the passwords and verify against a database
-
-    if username == 'your_username' and password == 'your_password':
-        socketio.emit('login_result', {'success': True}, namespace='/login')
+    if username in users and users[username] == password:
+        # In a real application, you should set up proper user sessions.
+        return 'Login successful!'
     else:
-        socketio.emit('login_result', {'success': False}, namespace='/login')
+        return 'Login failed. Please check your username and password.'
 
 if __name__ == '__main__':
-    socketio.run(app)
+    app.run(debug=True)
 
