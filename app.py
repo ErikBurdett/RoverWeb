@@ -34,5 +34,3 @@ def handle_message(message):
     if 'username' in session:
         emit('message', {'username': session['username'], 'message': message})
 
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=80)
