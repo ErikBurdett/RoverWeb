@@ -22,7 +22,7 @@ def login():
         if username in users and users[username] == password:
             session['username'] = username
             return redirect(url_for('home'))
-    return render_template('login.html')
+    return render_template('Templates/login.html')
 
 @app.route('/logout')
 def logout():
