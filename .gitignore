@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 .vscode
-website/__pycache__
-website/database.db
+/__pycache__
+/database.db
 
 
 # dependencies
