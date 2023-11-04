@@ -1,6 +1,6 @@
 .vscode
-website/__pycache__
-website/database.db
+api/website/__pycache__
+api/website/database.db
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
