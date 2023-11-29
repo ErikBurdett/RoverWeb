@@ -4,6 +4,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+import os
 
 
 app = Flask(__name__)
@@ -23,11 +24,17 @@ class Users(db.Model):
     return '<Name %r>' % self.name
 
 #Form
-class NameForm(FlaskForm):
-  name = StringField("What's Your Name", validators=[DataRequired()])
+class UserForm(FlaskForm):
+  name = StringField("Name", validators=[DataRequired()])
+  email = StringField("Email", validators=[DataRequired()])
   submit = SubmitField("Submit")
 
 @app.route('/')
+
+@app.route('/user/add', methods=['GET', 'POST'])
+def add_user():
+  return render_template("add_user.html")
+
 
 def index():
   first_name = "Rowdy"
@@ -50,7 +57,7 @@ def page_not_found(e):
 @app.route('/name', methods=['GET', 'POST'])
 def name():
   name = None
-  form = NameForm()
+  form = UserForm()
   if form.validate_on_submit():
     name = form.name.data
     form.name.data = ''
