@@ -31,7 +31,8 @@ class UserForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-  return render_template("add_user.html")
+  form = UserForm()
+  return render_template("add_user.html", form=form)
 
 @app.route('/')
 def index():
