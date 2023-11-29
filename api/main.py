@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = "my super secret key"
 
 #Form
 class NameForm(FlaskForm):
-  name = StringField("What's Your Name?", validators=[DataRequired()])
+  name = StringField("What's Your Name", validators=[DataRequired()])
   submit = SubmitField("Submit")
 
 @app.route('/')
