@@ -29,13 +29,11 @@ class UserForm(FlaskForm):
   email = StringField("Email", validators=[DataRequired()])
   submit = SubmitField("Submit")
 
-@app.route('/')
-
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
   return render_template("add_user.html")
 
-
+@app.route('/')
 def index():
   first_name = "Rowdy"
   return render_template("index.html", first_name=first_name)
