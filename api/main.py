@@ -8,7 +8,7 @@ app = Flask(__name__)
 #  return "<h1>Hello World!</h1>"
 
 def index():
-  return render_template("index.htnml")
+  return render_template("index.html")
 
 @app.route('/user/<name>')
 
