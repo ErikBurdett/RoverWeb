@@ -1,7 +1,6 @@
 from flask import Flask, render_template, flash, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from webforms import NameForm
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
@@ -33,6 +32,10 @@ class UserForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
   email = StringField("Email", validators=[DataRequired()])
   submit = SubmitField("Submit")
+
+class NameForm(FlaskForm):
+	name = StringField("What's Your Name", validators=[DataRequired()])
+	submit = SubmitField("Submit")
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
