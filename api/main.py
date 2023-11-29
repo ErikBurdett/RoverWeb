@@ -72,7 +72,7 @@ def page_not_found(e):
 @app.route('/name', methods=['GET', 'POST'])
 def name():
   name = None
-  form = UserForm()
+  form = NameForm()
   if form.validate_on_submit():
     name = form.name.data
     form.name.data = ''
