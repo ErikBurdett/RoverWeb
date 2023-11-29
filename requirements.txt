@@ -3,3 +3,5 @@ Flask-SQLAlchemy
 flask-sqlalchemy
 flask-login
 flask_wtf
+pymysql
+cryptography
