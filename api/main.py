@@ -9,8 +9,9 @@ import os
 
 app = Flask(__name__)
 
-database_path = os.path.join(app.root_path, 'instance', 'users.db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
+#database_path = os.path.join(app.root_path, 'instance', 'users.db')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 app.config['SECRET_KEY'] = "my super secret key"
 
 db = SQLAlchemy(app)
