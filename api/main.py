@@ -1,13 +1,8 @@
-import sys
-import os
+from flask import Flask, render_template
 
-sys.path.append(os.path.dirname(__file__))
-#sys.dont_write_bytecode=True
+app = Flask(__name__)
 
-from website import create_app
+@app.route('/')
 
-app = create_app()
-
-if __name__ == '__main__':
-  app.run()
-  
+def index():
+  return "<h1>Hello World!</h1>"
