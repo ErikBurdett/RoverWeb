@@ -53,7 +53,7 @@ def add_user():
     form.email.data = ''
     flash("User Added Successfully!")
   our_users = Users.query.order_by(Users.date_added)
-  return render_template("add_user.html", form=form, name=name)
+  return render_template("add_user.html", form=form, name=name, our_users=our_users)
 
 @app.route('/')
 def index():
