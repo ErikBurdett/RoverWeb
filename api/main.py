@@ -4,19 +4,20 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
-import os
+#import os
 
 
 app = Flask(__name__)
 
 #database_path = os.path.join(app.root_path, 'instance', 'our_users.db')
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 #psql "postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 app.config['SECRET_KEY'] = "my super secret key"
 
 db = SQLAlchemy(app)
+app.app_context().push()
 
 class Users(db.Model):
   id = db.Column(db.Integer, primary_key=True)
