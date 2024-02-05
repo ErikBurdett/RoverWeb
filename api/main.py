@@ -10,8 +10,9 @@ app = Flask(__name__)
 
 #database_path = os.path.join(app.root_path, 'instance', 'users.db')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 #psql "postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
@@ -19,11 +20,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "my super secret key"
 
 db = SQLAlchemy(app)
-app.app_context().push()
+#app.app_context().push()
+with app.app_context():
+    db.create_all()
 
 class Users(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  name = db.Column(db.String(50), nullable=False)
+  name = db.Column(db.String(50), nullable=False) #cant be blank
   email = db.Column(db.String(100), nullable=False, unique=True)
   date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
