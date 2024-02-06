@@ -6,23 +6,25 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
+db = SQLAlchemy()
 app = Flask(__name__)
 
 #database_path = os.path.join(app.root_path, 'instance', 'users.db')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 #psql "postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SECRET_KEY'] = "my super secret key"
 
-db = SQLAlchemy(app)
+db.init_app(app)
+#db = SQLAlchemy(app)
 #app.app_context().push()
-with app.app_context():
-    db.create_all()
+#with app.app_context():
+#  db.create_all()
 
 class Users(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -30,10 +32,14 @@ class Users(db.Model):
   email = db.Column(db.String(100), nullable=False, unique=True)
   date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
+  with app.app_context():
+      db.create_all()
+
   def __repr__(self):
     return '<Name %r>' % self.name
 
-#Form
+
+#Forms
 class UserForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
   email = StringField("Email", validators=[DataRequired()])
