@@ -6,8 +6,39 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import os
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+
+
+class ProductionConfig(Config):
+    DEBUG = False
+
+
+class StagingConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
+
 #db = SQLAlchemy()
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 #client = MongoClient(client = MongoClient('localhost', 27017, username='rowdyrover', password='HXr5m6yilhxYqjzK'))
 
@@ -20,14 +51,14 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 #"postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SECRET_KEY'] = "my super secret key"
+#app.config['SECRET_KEY'] = "my super secret key"
 
 #db.init_app(app)
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 #app.app_context().push()
 #with app.app_context():
 #  db.create_all()
@@ -38,8 +69,8 @@ class Users(db.Model):
   email = db.Column(db.String(100), nullable=False, unique=True)
   date_added = db.Column(db.DateTime, default=datetime.utcnow)
 
-  with app.app_context():
-      db.create_all()
+  #with app.app_context():
+      #db.create_all()
 
   def __repr__(self):
     return '<Name %r>' % self.name
@@ -57,7 +88,6 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-  return "is this working?"
   name = None
   form = UserForm()
   if form.validate_on_submit():
@@ -102,3 +132,4 @@ def name():
     flash("Form Submitted Successfully!")
 
   return render_template("name.html", name=name, form=form)
+
