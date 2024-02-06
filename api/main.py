@@ -57,6 +57,7 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
+  return "is this working?"
   name = None
   form = UserForm()
   if form.validate_on_submit():
