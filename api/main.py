@@ -4,10 +4,13 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
+from flask_pymongo import PyMongo
 import os
 
 #db = SQLAlchemy()
 app = Flask(__name__)
+
+
 
 #client = MongoClient(client = MongoClient('localhost', 27017, username='rowdyrover', password='HXr5m6yilhxYqjzK'))
 
@@ -20,14 +23,19 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 #app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
 #"postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SECRET_KEY'] = "my super secret key"
+app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.nppjde0.mongodb.net/?retryWrites=true&w=majority'
+
+#setup mongodb
+mongodb_client = PyMongo(app)
+db = mongodb_client.db
 
 #db.init_app(app)
-db = SQLAlchemy(app)
+#db = SQLAlchemy(app)
 #app.app_context().push()
 #with app.app_context():
 #  db.create_all()
