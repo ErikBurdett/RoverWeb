@@ -64,29 +64,19 @@ class NameForm(FlaskForm):
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
   if request.method == 'POST':
-    form = UserForm(request.form)
-    if form.validate():
-      name = form.name.data
-      email = form.email.data
-      existing_user = db.users.find_one({"email": email})
-      if existing_user is None:
-        db.users.insert_one({
-            "name": name,
-            "email": email,
-            "date_added": datetime.utcnow()
-        })
-        flash("User Added Successfully!")
-        form.name.data = ''
-        form.email.data = ''
-      else:
-          flash("User with this email already exists!")
-    else:
-        flash("Form validation failed!")
-  else:
-      form = UserForm()
+    form = UserForm()
+    name = form.name.data
+    email = form.email.data
 
-  our_users = db.users.find().sort("date_added", 1)
-  return render_template("add_user.html", form=form, our_users=our_users)
+    db.user.insert_one({
+      "name": name,
+      "email": email,
+      "date_completed": datetime.utcnow()
+    })
+    flash("User Added Successfully!")
+  else:
+    form = UserForm()
+  return render_template("add_user.html", form=form)
      
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
