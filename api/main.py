@@ -64,16 +64,19 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-  if request.method == 'POST':
-    name = request.form['name']
-    email = request.form['email']
+  form = UserForm()
+  if form.validate_on_submit():
+    name = form.name.data
+    email = form.email.data
     clt.insert_one({
       "name": name,
       "email": email,
-      "date_completed": datetime.utcnow()
+      "date_added": datetime.utcnow()
     })
-  all_users = clt.find()
-  return render_template("add_user.html", clt=all_users)
+    flash('User added successfully!', 'success')
+    return redirect(url_for('add_user'))  # Redirect after successful submission
+  return render_template("add_user.html", form=form)
+
    
 
 #@app.route('/user/add', methods=['GET', 'POST'])
