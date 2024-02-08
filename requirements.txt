@@ -6,4 +6,4 @@ flask_wtf
 pymysql
 cryptography
 SQLAlchemy
-flask-pymongo
+flask_pymongo
