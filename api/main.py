@@ -32,7 +32,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 
 #setup mongodb
 mongodb_client = PyMongo(app)
-db = mongodb_client.db
+#db = mongodb_client.db
 #db = mongodb_client.db
 
 #db.init_app(app)
@@ -68,7 +68,7 @@ def add_user():
     name = form.name.data
     email = form.email.data
 
-    db.add_user.insert_one({
+    mongodb_client.db.add_user.insert_one({
       "name": name,
       "email": email,
       "date_completed": datetime.utcnow()
