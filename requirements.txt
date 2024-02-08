@@ -7,3 +7,4 @@ pymysql
 cryptography
 SQLAlchemy
 flask_pymongo
+PyMongo
