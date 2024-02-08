@@ -68,7 +68,7 @@ def add_user():
     name = form.name.data
     email = form.email.data
 
-    mongodb_client.db.add_user.insert_one({
+    mongodb_client.db.insert_one({
       "name": name,
       "email": email,
       "date_completed": datetime.utcnow()
