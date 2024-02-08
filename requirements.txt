@@ -6,6 +6,4 @@ flask_wtf
 pymysql
 cryptography
 SQLAlchemy
-pymongo==4.3.3
-python-dotenv==0.21.1
-black==22.12.0
+flask-pymongo
