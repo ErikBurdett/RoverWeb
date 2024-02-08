@@ -68,7 +68,7 @@ def add_user():
     name = form.name.data
     email = form.email.data
 
-    db.users.insert_one({
+    db.add_user.insert_one({
       "name": name,
       "email": email,
       "date_completed": datetime.utcnow()
