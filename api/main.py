@@ -32,7 +32,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 
 #setup mongodb
 mongodb_client = PyMongo(app)
-db = mongodb_client
+db = mongodb_client.db
 #db = mongodb_client.db
 
 #db.init_app(app)
