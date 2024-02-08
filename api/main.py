@@ -63,21 +63,22 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-    name = None
-    form = request.form
-    if request.method == 'POST':
-        email = form['email']
-        user = db.users.find_one({'email': email})
-        if user is None:
-            db.users.insert_one({'name': form['name'], 'email': email})
-            flash("User Added Successfully!")
-        name = form['name']
-        form['name'] = ''
-        form['email'] = ''
-    
-    our_users = db.users.find().sort('date_added', 1)
-    return render_template("add_user.html", form=form, name=name, our_users=our_users)
-   
+  if request.method == 'POST':
+    form = UserForm()
+    name = form.name.data
+    email = form.email.data
+
+    db.users.insert_one({
+       "name": name,
+       "email": email,
+       "date_created": datetime.utcnow()
+    })
+    flash("User Addded Successfully!")
+    return redirect("/")
+  else:
+    form = UserForm()
+  return render_template("add_user.html", form=form)
+  
 
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
