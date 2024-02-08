@@ -1,3 +1,4 @@
+from collections import UserString
 from flask import Flask, render_template, flash, request, redirect, url_for
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -5,6 +6,7 @@ from wtforms.validators import DataRequired
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
 from flask_pymongo import PyMongo
+from pymongo import MongoClient
 import os
 
 #db = SQLAlchemy()
@@ -28,7 +30,10 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 
 #setup mongodb
 mongodb_client = PyMongo(app)
-db = mongodb_client.db
+
+db = mongodb_client.flask_database
+clt = db.users
+
 #db = mongodb_client.db
 
 #db.init_app(app)
@@ -60,19 +65,33 @@ class NameForm(FlaskForm):
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
   if request.method == 'POST':
-    form = UserForm()
-    name = form.name.data
-    email = form.email.data
-
-    db.user.insert_one({
+    name = request.form['name']
+    email = request.form['email']
+    clt.insert_one({
       "name": name,
       "email": email,
       "date_completed": datetime.utcnow()
     })
-    flash("User Added Successfully!")
-  else:
-    form = UserForm()
-  return render_template("add_user.html", form=form)
+  all_users = clt.find()
+  return render_template("add_user.html", clt=all_users)
+   
+
+#@app.route('/user/add', methods=['GET', 'POST'])
+#def add_user():
+  #if request.method == 'POST':
+    #form = UserForm()
+    #name = form.name.data
+    #email = form.email.data
+
+    #db.user.insert_one({
+      #"name": name,
+      #"email": email,
+      #"date_completed": datetime.utcnow()
+    #})
+    #flash("User Added Successfully!")
+  #else:
+    #form = UserForm()
+  #return render_template("add_user.html", form=form)
      
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
