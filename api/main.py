@@ -32,7 +32,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 
 #setup mongodb
 mongodb_client = PyMongo(app)
-#db = mongodb_client.db
+db = mongodb_client.db
 #db = mongodb_client.db
 
 #db.init_app(app)
@@ -63,20 +63,25 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-  if request.method == 'POST':
-    form = UserForm()
-    name = form.name.data
+  name = None
+  form = UserForm()
+  if form.validate_on_submit():
     email = form.email.data
-
-    mongodb_client.db.insert_one({
-      "name": name,
-      "email": email,
-      "date_completed": datetime.utcnow()
-    })
-    flash("User Added Successfully!")
-  else:
-    form = UserForm()
-  return render_template("add_user.html", form=form)
+    existing_user = db.users.find_one({"email": email})
+    if existing_user is None:
+      name = form.name.data
+      db.users.insert_one({
+        "name": name,
+        "email": email,
+        "date_added": datetime.utcnow()
+      })
+      flash("User Added Successfully!")
+      form.name.data = ''
+      form.email.data = ''
+    else:
+        flash("User with this email already exists!")
+  our_users = db.users.find().sort("date_added", 1)
+  return render_template("add_user.html", form=form, name=name, our_users=our_users)
      
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
