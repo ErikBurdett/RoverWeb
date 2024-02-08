@@ -10,10 +10,6 @@ import os
 #db = SQLAlchemy()
 app = Flask(__name__)
 
-
-
-#client = MongoClient(client = MongoClient('localhost', 27017, username='rowdyrover', password='HXr5m6yilhxYqjzK'))
-
 #db = client.users_db
 #todos = db.todos
 
@@ -34,11 +30,6 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 mongodb_client = PyMongo(app)
 db = mongodb_client.db
 #db = mongodb_client.db
-
-if db:
-    print("Connected to MongoDB successfully!")
-else:
-    print("Failed to connect to MongoDB.")
 
 #db.init_app(app)
 #db = SQLAlchemy(app)
