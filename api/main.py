@@ -26,7 +26,7 @@ app = Flask(__name__)
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
 #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SECRET_KEY'] = "my super secret key"
-app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.nppjde0.mongodb.net/?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.nppjde0.mongodb.net/flaskDatabase?retryWrites=true&w=majority'
 
 #setup mongodb
 mongodb_client = PyMongo(app)
