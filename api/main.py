@@ -31,8 +31,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:HXr5m6yilhxYqjzk@cluster0.np
 #setup mongodb
 mongodb_client = PyMongo(app)
 
-db = mongodb_client.flask_database
-clt = db.users
+db = mongodb_client.db
 
 #db = mongodb_client.db
 
@@ -64,19 +63,20 @@ class NameForm(FlaskForm):
 
 @app.route('/user/add', methods=['GET', 'POST'])
 def add_user():
-  form = UserForm()
-  if form.validate_on_submit():
-    name = form.name.data
-    email = form.email.data
-    clt.insert_one({
-      "name": name,
-      "email": email,
-      "date_added": datetime.utcnow()
-    })
-    flash('User added successfully!', 'success')
-    return redirect(url_for('add_user'))  # Redirect after successful submission
-  return render_template("add_user.html", form=form)
-
+    name = None
+    form = request.form
+    if request.method == 'POST':
+        email = form['email']
+        user = db.users.find_one({'email': email})
+        if user is None:
+            db.users.insert_one({'name': form['name'], 'email': email})
+            flash("User Added Successfully!")
+        name = form['name']
+        form['name'] = ''
+        form['email'] = ''
+    
+    our_users = db.users.find().sort('date_added', 1)
+    return render_template("add_user.html", form=form, name=name, our_users=our_users)
    
 
 #@app.route('/user/add', methods=['GET', 'POST'])
