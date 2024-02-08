@@ -35,6 +35,11 @@ mongodb_client = PyMongo(app)
 db = mongodb_client.db
 #db = mongodb_client.db
 
+if db:
+    print("Connected to MongoDB successfully!")
+else:
+    print("Failed to connect to MongoDB.")
+
 #db.init_app(app)
 #db = SQLAlchemy(app)
 #app.app_context().push()
