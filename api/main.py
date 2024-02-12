@@ -33,7 +33,6 @@ mongodb_client = PyMongo(app)
 
 db = mongodb_client.db
 
-#db = mongodb_client.db
 
 #db.init_app(app)
 #db = SQLAlchemy(app)
