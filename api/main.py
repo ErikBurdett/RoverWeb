@@ -2,7 +2,7 @@ from collections import UserString
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
 from flask_pymongo import PyMongo
@@ -58,7 +58,10 @@ class UserForm(FlaskForm):
   submit = SubmitField("Submit")
 
 class SignUpForm(FlaskForm):
-  name = StringField("Name", validators=[DataRequired()])
+  def no_spaces(form, field):
+    if ' ' in field.data:
+      raise ValidationError('Name cannot contain spaces')
+  name = StringField("Name", validators=[DataRequired(), no_spaces])
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
 
