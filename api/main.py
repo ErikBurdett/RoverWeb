@@ -86,7 +86,7 @@ def add_user():
   return render_template("add_user.html", form=form)
 
 @app.route('/user/signup', methods=['GET'])
-def sign_up(self):
+def sign_up():
   form = SignUpForm()
   name = form.name.data
   password = form.password.data
