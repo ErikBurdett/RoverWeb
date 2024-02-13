@@ -18,6 +18,13 @@
 
         {{ form.name.label(class="form-label") }}
         {{ form.name(class="form-control") }}
+        {% if form.name.errors %}
+        <ul class="errors">
+          {% for error in form.name.errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
         <br/>
 
         {{ form.password.label(class="form-label") }}
