@@ -103,8 +103,8 @@ def sign_up():
           "password": password
       }
 
-      # Encrypt the password
-      #user['password'] = pbkdf2_sha256.encrypt(user['password'])
+      #Encrypt the password
+      user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
       # Check for existing user with the same name
       #if existing_user:
