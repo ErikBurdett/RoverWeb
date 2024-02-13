@@ -90,7 +90,7 @@ def sign_up():
   form = SignUpForm()
   name = form.name.data
   password = form.password.data
-  users = {
+  user = {
     "_id": uuid.uuid4().hex,
     "name": name,
     "password": password
