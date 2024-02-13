@@ -9,23 +9,25 @@
     </div>
 {% endfor %}
 
-<div class="card shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 50rem;">
-  <div class="card-body">
-    <h1 class="card-title text-center">Create an Account</h1>
-    <form method="POST">
-      {{ form.hidden_tag() }}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 50rem;">
+    <div class="card-body">
+      <h1 class="card-title text-center">Create an Account</h1>
+      <form method="POST">
+        {{ form.hidden_tag() }}
 
-      {{ form.name.label(class="form-label") }}
-      {{ form.name(class="form-control") }}
-      <br/>
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+        <br/>
 
-      {{ form.password.label(class="form-label") }}
-      {{ form.password(class="form-control") }}
-      <br/>
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(class="form-control") }}
+        <br/>
 
-      {{ form.submit(class="btn btn-primary") }}
+        {{ form.submit(class="btn btn-primary") }}
 
-    </form>
+      </form>
+  </div>
 </div>
 
 {% endblock %}
