@@ -107,9 +107,10 @@ def sign_up():
       user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
       # Check for existing user with the same name
-      #if existing_user:
-          #flash("User with this name already exists")
-          #return redirect(url_for('sign_up'))
+      existing_user = db.users.find_one({ "name": user['name'] })
+      if existing_user:
+          flash("User with this name already exists")
+          return redirect(url_for('sign_up'))
 
       # Insert the user into the database
       db.users.insert_one(user)
