@@ -13,19 +13,6 @@ import os
 
 app = Flask(__name__)
 
-#db = client.users_db
-#todos = db.todos
-
-#database_path = os.path.join(app.root_path, 'instance', 'users.db')
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb'
-#"postgres://default:ZFu7KC3xYhUg@ep-red-sun-42046104.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:iCYTEGcgJBNSqJP0ZumXxkT@localhost/our_users'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['SECRET_KEY'] = "my super secret key"
 app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:5LoCaB1aMpVCxsso@cluster0.nppjde0.mongodb.net/flaskDatabase?retryWrites=true&w=majority'
 
@@ -33,23 +20,6 @@ app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:5LoCaB1aMpVCxsso@cluster0.np
 mongodb_client = PyMongo(app)
 
 db = mongodb_client.db
-
-
-#db.init_app(app)
-#db = SQLAlchemy(app)
-#app.app_context().push()
-#with app.app_context():
-#  db.create_all()
-
-#class Users(db.Model):
-  #id = db.Column(db.Integer, primary_key=True)
-  #name = db.Column(db.String(50), nullable=False) #cant be blank
-  #email = db.Column(db.String(100), nullable=False, unique=True)
-  #date_added = db.Column(db.DateTime, default=datetime.utcnow)
-
-  #def __repr__(self):
-    #return '<Name %r>' % self.name
-
 
 #Forms
 class UserForm(FlaskForm):
