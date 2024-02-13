@@ -165,10 +165,10 @@ def index():
   return render_template("index.html", first_name=first_name)
 
 @app.route('/user/<name>')
-def user(name):
-  name = session.get('name')
-  return render_template("user.html", name=name)
 
+def user(name):
+  
+  return render_template("user.html", name=name)
 
 #Error Pages
 @app.errorhandler(404)
