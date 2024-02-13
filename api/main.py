@@ -62,10 +62,6 @@ class SignUpForm(FlaskForm):
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
 
-  #def validate_name(form, field):
-    #if ' ' in field.data:
-      #raise ValidationError("Name cannot contain spaces")
-
 class LoginForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
   password = StringField("Password", validators=[DataRequired()])
@@ -122,11 +118,11 @@ def sign_up():
     db.users.insert_one(user)
 
     # Start the session
-    #session['logged_in'] = True
-    #session['user'] = {
-        #"_id": user["_id"],
-        #"name": user["name"]
-    #}
+    session['logged_in'] = True
+    session['user'] = {
+        "_id": user["_id"],
+        "name": user["name"]
+    }
 
     return redirect(url_for('user', name=name))
 
