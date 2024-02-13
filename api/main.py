@@ -59,7 +59,7 @@ class UserForm(FlaskForm):
 class SignUpForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
   password = StringField("Password", validators=[DataRequired()])
-  submit = SubmitField("Submit")
+  submit = SubmitField("Sign Up")
 
 class NameForm(FlaskForm):
 	name = StringField("What's Your Name", validators=[DataRequired()])
