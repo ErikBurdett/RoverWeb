@@ -62,9 +62,9 @@ class SignUpForm(FlaskForm):
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
 
-  def validate_name(form, field):
-    if ' ' in field.data:
-      raise ValidationError("Name cannot contain spaces")
+  #def validate_name(form, field):
+    #if ' ' in field.data:
+      #raise ValidationError("Name cannot contain spaces")
 
 class LoginForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
