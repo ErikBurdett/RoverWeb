@@ -154,6 +154,11 @@ def login():
 
   return render_template("login.html", form=form)
 
+@app.route('/user/logout')
+def logout():
+  session.clear()
+  return redirect(url_for('sign_up'))
+
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
   #if request.method == 'POST':
