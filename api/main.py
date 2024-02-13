@@ -7,6 +7,8 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from flask_pymongo import PyMongo
 from pymongo import MongoClient
+from passlib.hash import pbkdf2_sha256
+import uuid
 import os
 
 #db = SQLAlchemy()
@@ -84,16 +86,23 @@ def add_user():
   return render_template("add_user.html", form=form)
 
 @app.route('/user/signup', methods=['GET'])
-def sign_up():
+def sign_up(self):
   form = SignUpForm()
-  user = {
-    "_id": "",
-    "name": "",
-    "password": ""
+  name = form.name.data
+  password = form.password.data
+  users = {
+    "_id": uuid.uuid4().hex,
+    "name": name,
+    "password": password
   }
+
+  user['password'] = pbkdf2_sha256.encrypt(user['password'])
+
+  db.users.insert_one(user)
+
   return render_template("sign_up.html", form=form)
 
-   
+  
    
   
 
