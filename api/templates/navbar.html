@@ -22,13 +22,9 @@
           -->
           
         </ul> 
-        <form class="d-flex" method="POST">
-            {% if session.logged_in %}
-                <button class="btn btn-danger" type="submit" name="action" value="logout">Logout</button>
-            {% else %}
-                <a href="{{ url_for('login') }}" class="btn btn-primary me-2" type="button">Log In</a>
-                <a href="{{ url_for('sign_up') }}" class="btn btn-primary" role="button">Sign Up</a>
-            {% endif %}
+        <form class="d-flex">
+          <a href="{{ url_for('login') }}" class="btn btn-primary me-2" type="button">Log In</a>
+          <a href="{{ url_for('sign_up') }}" class="btn btn-primary" role="button">Sign Up</a>
         </form>
       </div>
     </div>

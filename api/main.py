@@ -152,10 +152,6 @@ def login():
     else:
       flash("Invalid username or password. Please try again.")
 
-  if request.method == 'POST' and request.form.get('action') == 'logout':
-    session.clear()
-    return redirect(url_for('sign_up'))
-
   return render_template("login.html", form=form)
 
 #@app.route('/user/add', methods=['GET', 'POST'])
@@ -200,9 +196,6 @@ def index():
 @app.route('/user/<name>')
 
 def user(name):
-  if request.method == 'POST' and request.form.get('action') == 'logout':
-    session.clear()
-    return redirect(url_for('sign_up'))
   return render_template("user.html", name=name)
 
 #Error Pages
