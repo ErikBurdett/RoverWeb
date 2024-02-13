@@ -56,6 +56,11 @@ class UserForm(FlaskForm):
   email = StringField("Email", validators=[DataRequired()])
   submit = SubmitField("Submit")
 
+class SignUpForm(FlaskForm):
+  name = StringField("Name", validators=[DataRequired()])
+  password = StringField("Password", validators=[DataRequired()])
+  submit = SubmitField("Submit")
+
 class NameForm(FlaskForm):
 	name = StringField("What's Your Name", validators=[DataRequired()])
 	submit = SubmitField("Submit")
@@ -80,12 +85,13 @@ def add_user():
 
 @app.route('/user/signup', methods=['GET'])
 def sign_up():
+  form = SignUpForm()
   user = {
     "_id": "",
     "name": "",
     "password": ""
   }
-  return render_template("sign_up.html")
+  return render_template("sign_up.html", form=form)
 
    
    
