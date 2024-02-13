@@ -58,7 +58,7 @@ class UserForm(FlaskForm):
   submit = SubmitField("Submit")
 
 class SignUpForm(FlaskForm):
-  name = StringField("Name", validators=[DataRequired(), NoneOf(' ', 'Name cannot contain spaces')])
+  name = StringField("Name", validators=[DataRequired()])
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
 
