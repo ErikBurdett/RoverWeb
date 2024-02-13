@@ -62,6 +62,11 @@ class SignUpForm(FlaskForm):
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
 
+class LoginForm(FlaskForm):
+  name = StringField("Name", validators=[DataRequired()])
+  password = StringField("Password", validators=[DataRequired()])
+  submit = SubmitField("Login")
+
 class NameForm(FlaskForm):
 	name = StringField("What's Your Name", validators=[DataRequired()])
 	submit = SubmitField("Submit")
@@ -126,7 +131,29 @@ def sign_up():
 
 @app.route('/user/login', methods=['GET', 'POST'])
 def login():
-  return
+  form = LoginForm()
+
+  if form.validate_on_submit():
+    name = form.name.data
+    password = form.password.data
+
+    # Retrieve user from the database based on the provided name
+    user = db.users.find_one({ "name": name })
+
+    # Verify if the user exists and the password is correct
+    if user and pbkdf2_sha256.verify(password, user['password']):
+      # Start session and redirect to user page
+      session['logged_in'] = True
+      session['user'] = {
+        "_id": user["_id"],
+        "name": user["name"]
+      }
+      return redirect(url_for('user', name=name))
+    else:
+      flash("Invalid username or password. Please try again.")
+
+  return render_template("login.html", form=form)
+ 
 
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
