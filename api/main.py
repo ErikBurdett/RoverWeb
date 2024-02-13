@@ -104,23 +104,22 @@ def sign_up():
         }
 
         # Encrypt the password
-        user['password'] = pbkdf2_sha256.encrypt(user['password'])
+        #user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
         # Check for existing user with the same name
-        existing_user = db.users.find_one({ "name": user['name'] })
-        if existing_user:
-            flash("User with this name already exists")
-            return redirect(url_for('sign_up'))
+        #if existing_user:
+            #flash("User with this name already exists")
+            #return redirect(url_for('sign_up'))
 
         # Insert the user into the database
         db.users.insert_one(user)
 
         # Start the session
-        session['logged_in'] = True
-        session['user'] = {
-            "_id": user["_id"],
-            "name": user["name"]
-        }
+        #session['logged_in'] = True
+        #session['user'] = {
+            #"_id": user["_id"],
+            #"name": user["name"]
+        #}
 
         return redirect(url_for('index'))
 
