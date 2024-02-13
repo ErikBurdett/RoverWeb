@@ -8,3 +8,4 @@ cryptography
 SQLAlchemy
 flask_pymongo
 PyMongo
+passlib
