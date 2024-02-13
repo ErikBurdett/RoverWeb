@@ -87,44 +87,45 @@ def add_user():
 
 @app.route('/user/signup', methods=['POST'])
 def sign_up():
-    # Get data from the form
-    name = request.form.get('name')
-    password = request.form.get('password')
+    # Create form instance
+    form = SignUpForm()
 
-    # Check if name and password are provided
-    if not name or not password:
-        return "Name and password are required", 400
+    # Validate form data
+    if form.validate_on_submit():
+        # Retrieve data from the form
+        name = form.name.data
+        password = form.password.data
 
-    # Create the user object
-    user = {
-        "_id": uuid.uuid4().hex,
-        "name": name,
-        "password": password
-    }
+        # Create the user object
+        user = {
+            "_id": uuid.uuid4().hex,
+            "name": name,
+            "password": password
+        }
 
-    # Encrypt the password
-    user['password'] = pbkdf2_sha256.encrypt(user['password'])
+        # Encrypt the password
+        user['password'] = pbkdf2_sha256.encrypt(user['password'])
 
-    # Check for existing user with the same name
-    existing_user = db.users.find_one({ "name": user['name'] })
-    if existing_user:
-        return "User with this name already exists", 400
+        # Check for existing user with the same name
+        existing_user = db.users.find_one({ "name": user['name'] })
+        if existing_user:
+            flash("User with this name already exists")
+            return redirect(url_for('sign_up'))
 
-    # Insert the user into the database
-    db.users.insert_one(user)
+        # Insert the user into the database
+        db.users.insert_one(user)
 
-    # Start the session
-    session['logged_in'] = True
-    session['user'] = {
-        "_id": user["_id"],
-        "name": user["name"]
-    }
+        # Start the session
+        session['logged_in'] = True
+        session['user'] = {
+            "_id": user["_id"],
+            "name": user["name"]
+        }
 
-    return redirect("/")
+        return redirect(url_for('index'))
 
-  
-   
-  
+    # If form validation fails, redirect back to sign-up page
+    return render_template("sign_up.html", form=form)
 
 #@app.route('/user/add', methods=['GET', 'POST'])
 #def add_user():
