@@ -21,11 +21,16 @@
           </li>
           -->
           
-        </ul> 
-        <form class="d-flex">
-          <a href="{{ url_for('login') }}" class="btn btn-primary me-2" type="button">Log In</a>
-          <a href="{{ url_for('sign_up') }}" class="btn btn-primary" role="button">Sign Up</a>
-        </form>
+          {% if session.logged_in %}
+            <form class="d-flex">
+                <a href="{{ url_for('login') }}" class="btn btn-danger me-2" type="button">Logout</a>
+            </form>
+          {% else %}
+            <form class="d-flex">
+                <a href="{{ url_for('login') }}" class="btn btn-primary me-2" type="button">Log In</a>
+                <a href="{{ url_for('sign_up') }}" class="btn btn-primary" role="button">Sign Up</a>
+            </form>
+          {% endif %}
       </div>
     </div>
 </nav>
