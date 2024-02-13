@@ -96,7 +96,6 @@ def sign_up():
 
     return redirect(url_for('user', name=name))
 
-  # If form validation fails, redirect back to sign-up page
   return render_template("sign_up.html", form=form)
 
 @app.route('/user/login', methods=['GET', 'POST'])
@@ -127,7 +126,7 @@ def login():
 @app.route('/user/logout')
 def logout():
   session.clear()
-  return redirect(url_for('sign_up'))
+  return redirect(url_for('login'))
 
 @app.route('/')
 def index():
