@@ -11,7 +11,6 @@ from passlib.hash import pbkdf2_sha256
 import uuid
 import os
 
-#db = SQLAlchemy()
 app = Flask(__name__)
 
 #db = client.users_db
@@ -87,12 +86,10 @@ def add_user():
 
 @app.route('/user/signup', methods=['GET', 'POST'])
 def sign_up():
-  # Create form instance
   form = SignUpForm()
 
   # Validate form data
   if form.validate_on_submit():
-      # Retrieve data from the form
       name = form.name.data
       password = form.password.data
 
