@@ -109,8 +109,8 @@ def sign_up():
       # Check for existing user with the same name
       existing_user = db.users.find_one({ "name": user['name'] })
       if existing_user:
-          flash("User with this name already exists")
-          return redirect(url_for('sign_up'))
+        flash("User with this name already exists")
+        return redirect(url_for('sign_up'))
 
       # Insert the user into the database
       db.users.insert_one(user)
