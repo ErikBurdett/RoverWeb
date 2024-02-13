@@ -165,9 +165,9 @@ def index():
   return render_template("index.html", first_name=first_name)
 
 @app.route('/user/<name>')
-def user():
-  user_name = session.get('user')
-  return render_template("user.html", name=user_name)
+def user(name):
+    name = session.get('user')
+    return render_template("user.html", name=name)
 
 
 #Error Pages
