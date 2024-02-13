@@ -57,14 +57,14 @@ class UserForm(FlaskForm):
   email = StringField("Email", validators=[DataRequired()])
   submit = SubmitField("Submit")
 
-def no_spaces(form, field):
-  if ' ' in field.data:
-    raise ValidationError('Name cannot contain spaces')
-
 class SignUpForm(FlaskForm):
-  name = StringField("Name", [DataRequired(), no_spaces])
+  name = StringField("Name", [DataRequired()])
   password = StringField("Password", validators=[DataRequired()])
   submit = SubmitField("Sign Up")
+
+  def validate_name(form, field):
+    if ' ' in field.data:
+      raise ValidationError('Name cannot contain spaces')
 
 class LoginForm(FlaskForm):
   name = StringField("Name", validators=[DataRequired()])
