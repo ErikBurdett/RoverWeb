@@ -1,5 +1,5 @@
 from collections import UserString
-from flask import Flask, render_template, flash, request, redirect, url_for
+from flask import Flask, render_template, flash, request, redirect, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -85,22 +85,42 @@ def add_user():
     form = UserForm()
   return render_template("add_user.html", form=form)
 
-@app.route('/user/signup', methods=['GET', 'POST'])
+@app.route('/user/signup', methods=['POST'])
 def sign_up():
-  form = SignUpForm()
-  name = form.name.data
-  password = form.password.data
-  user = {
-    "_id": uuid.uuid4().hex,
-    "name": name,
-    "password": password
-  }
+    # Get data from the form
+    name = request.form.get('name')
+    password = request.form.get('password')
 
-  user['password'] = pbkdf2_sha256.encrypt(user['password'])
+    # Check if name and password are provided
+    if not name or not password:
+        return "Name and password are required", 400
 
-  db.users.insert_one(user)
+    # Create the user object
+    user = {
+        "_id": uuid.uuid4().hex,
+        "name": name,
+        "password": password
+    }
 
-  return render_template("sign_up.html", form=form)
+    # Encrypt the password
+    user['password'] = pbkdf2_sha256.encrypt(user['password'])
+
+    # Check for existing user with the same name
+    existing_user = db.users.find_one({ "name": user['name'] })
+    if existing_user:
+        return "User with this name already exists", 400
+
+    # Insert the user into the database
+    db.users.insert_one(user)
+
+    # Start the session
+    session['logged_in'] = True
+    session['user'] = {
+        "_id": user["_id"],
+        "name": user["name"]
+    }
+
+    return redirect("/")
 
   
    
