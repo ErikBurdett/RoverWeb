@@ -122,7 +122,7 @@ def sign_up():
           "name": user["name"]
       }
 
-      return redirect(url_for('index'))
+      return redirect(url_for('user'))
 
   # If form validation fails, redirect back to sign-up page
   return render_template("sign_up.html", form=form)
