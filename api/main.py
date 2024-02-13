@@ -159,49 +159,16 @@ def logout():
   session.clear()
   return redirect(url_for('sign_up'))
 
-#@app.route('/user/add', methods=['GET', 'POST'])
-#def add_user():
-  #if request.method == 'POST':
-    #form = UserForm()
-    #name = form.name.data
-    #email = form.email.data
-
-    #db.user.insert_one({
-      #"name": name,
-      #"email": email,
-      #"date_completed": datetime.utcnow()
-    #})
-    #flash("User Added Successfully!")
-  #else:
-    #form = UserForm()
-  #return render_template("add_user.html", form=form)
-     
-#@app.route('/user/add', methods=['GET', 'POST'])
-#def add_user():
-  #name = None
-  #form = UserForm()
-  #if form.validate_on_submit():
-    #user = Users.query.filter_by(email=form.email.data).first()
-    #if user is None:
-      #user = Users(name=form.name.data, email=form.email.data)
-      #db.session.add(user)
-      #db.session.commit()
-    #name = form.name.data
-    #form.name.data = ''
-    #form.email.data = ''
-    #flash("User Added Successfully!")
-  #our_users = Users.query.order_by(Users.date_added)
-  #return render_template("add_user.html", form=form, name=name, our_users=our_users)
-
 @app.route('/')
 def index():
   first_name = "Rowdy"
   return render_template("index.html", first_name=first_name)
 
 @app.route('/user/<name>')
+def user():
+  user_name = session.get('user')
+  return render_template("user.html", name=user_name)
 
-def user(name):
-  return render_template("user.html", name=name)
 
 #Error Pages
 @app.errorhandler(404)
