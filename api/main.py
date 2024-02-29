@@ -17,6 +17,9 @@ app.config['SECRET_KEY'] = "my super secret key"
 
 app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:5LoCaB1aMpVCxsso@cluster0.nppjde0.mongodb.net/flaskDatabase?retryWrites=true&w=majority'
 
+app.config['UPLOAD_FOLDER'] = 'uploads'
+
+
 #setup mongodb
 mongodb_client = PyMongo(app)
 
@@ -160,4 +163,15 @@ def name():
     flash("Form Submitted Successfully!")
 
   return render_template("name.html", name=name, form=form)
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+  if 'file' not in request.files:
+    return 'No file part'
+  file = request.files['file']
+  if file.filename == '':
+    return 'No selected file'
+  if file:
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))  # Save the file to a designated folder
+    return 'File uploaded successfully'
 
