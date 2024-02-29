@@ -131,8 +131,7 @@ def logout():
 
 @app.route('/')
 def index():
-  first_name = "Rowdy"
-  return render_template("index.html", first_name=first_name)
+  return render_template("index.html")
 
 @app.route('/user/<name>')
 def user(name):
