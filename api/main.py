@@ -164,14 +164,7 @@ def name():
 
   return render_template("name.html", name=name, form=form)
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-  if 'file' not in request.files:
-    return 'No file part'
-  file = request.files['file']
-  if file.filename == '':
-    return 'No selected file'
-  if file:
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))  # Save the file to a designated folder
-    return 'File uploaded successfully'
+@app.route('/potree')
+def potree_viewer():
+  return render_template('potree_viewer.html')
 
