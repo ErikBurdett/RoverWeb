@@ -14,6 +14,7 @@ import os
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "my super secret key"
+
 app.config['MONGO_URI'] = 'mongodb+srv://rowdyrover:5LoCaB1aMpVCxsso@cluster0.nppjde0.mongodb.net/flaskDatabase?retryWrites=true&w=majority'
 
 #setup mongodb
@@ -134,10 +135,12 @@ def index():
   return render_template("index.html", first_name=first_name)
 
 @app.route('/user/<name>')
-
 def user(name):
-  
-  return render_template("user.html", name=name)
+  if 'logged_in' in session:
+    return render_template("user.html", name=name)
+  else:
+    flash("You need to log in first.")
+    return redirect(url_for('login'))
 
 #Error Pages
 @app.errorhandler(404)
