@@ -143,6 +143,11 @@ def user(name):
   else:
     flash("You need to log in first.")
     return redirect(url_for('login'))
+def handle_data():
+    data = request.json
+    # Process the received data
+    print("Received data:", data)
+    return 'Data received', 200
 
 #Error Pages
 @app.errorhandler(404)
