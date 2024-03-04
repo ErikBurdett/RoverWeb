@@ -144,7 +144,7 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
-@app.route('/user/<name>/data', methods=['POST', 'GET'])
+@app.route('/user/<name>/data', methods=['POST', 'GET', 'PUT'])
 def handle_data(name):
   uploaded_file = request.files['textFile']
   files = request.files['file']
