@@ -144,13 +144,11 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
-@app.route('/user/<name>/data', methods=['POST'])
+@app.route('/user/<name>/data', methods=['POST', 'GET'])
 def handle_data(name):
   uploaded_file = request.files['textFile']
-
   files = request.files['file']
   return render_template("data.html", files=uploaded_file, name=name), 200
-  
 
 #Error Pages
 @app.errorhandler(404)
