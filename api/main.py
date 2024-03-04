@@ -109,7 +109,7 @@ def login():
   if form.validate_on_submit():
     name = form.name.data
     password = form.password.data
-    print("Test")
+    
     # Retrieve user from the database based on the provided name
     user = db.users.find_one({ "name": name })
 
@@ -146,11 +146,7 @@ def user(name):
 
 def handle_data(data):
   data = request.json
-  
-  # Process the received data
-  flash(f"Received data: {data}")
-  if data is None:
-    data = "No data received"
+  print(f"Received data: {data}")
   return render_template("user.html", data=data)
 
 #Error Pages
