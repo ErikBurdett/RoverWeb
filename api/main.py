@@ -144,7 +144,7 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
-@app.route('/user/<name>', methods=['POST'])
+@app.route('/user/<name>', methods=['POST', 'GET'])
 def handle_data(data):
   data = request.json
   
