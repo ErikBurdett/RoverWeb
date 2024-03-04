@@ -146,9 +146,11 @@ def user(name):
 
 @app.route('/user/<name>/data', methods=['GET', 'POST'])
 def handle_data(name):
-  data = request.json
-  print(f"Received data: {data}")
-  return render_template("data.html", data=data, name=name)
+  if 'file' not in request.files:
+    return 'No file provided', 400
+  
+  files = request.files['file']
+  return render_template("data.html", files=files, name=name)
 
 #Error Pages
 @app.errorhandler(404)

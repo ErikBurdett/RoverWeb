@@ -2,6 +2,10 @@
 
 {% block content %}
 
-    <h2>Data Recieved: {{ data }}</h2>
-
+    <h1>Uploaded File</h1>
+    <p>File Name: {{ files.filename }}</p>
+    <p>File Content:</p>
+    <pre>{{ files.read().decode('utf-8') }}</pre>
+    <!-- This assumes the file content is text. Adjust if the content is different. -->
+    
 {% endblock %}
