@@ -149,6 +149,8 @@ def handle_data(data):
   
   # Process the received data
   print("Received data:", data)
+  if data is None:
+    data = "No data received"
   return render_template("user.html", data=data)
 
 #Error Pages
