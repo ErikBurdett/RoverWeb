@@ -152,7 +152,7 @@ def handle_data(name):
 
     files = request.files['file']
     return render_template("data.html", files=files, name=name), 200
-  return 'Method not allowed', 405
+  #return 'Method not allowed', 405
 
 #Error Pages
 @app.errorhandler(404)
