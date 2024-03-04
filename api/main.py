@@ -149,7 +149,7 @@ def user(name):
 
 
 @app.rout('/upload', methods=['POST'])
-def handle_data(name):
+def handle_data():
     if request.method == 'POST':
         if 'file' in request.files:
           file = request.files['file']
