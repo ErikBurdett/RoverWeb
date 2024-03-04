@@ -2,10 +2,19 @@
 
 {% block content %}
 
-    <h1>Uploaded File</h1>
-    <p>File Name: {{ files.filename }}</p>
-    <p>File Content:</p>
-    <pre>{{ files.read().decode('utf-8') }}</pre>
-    <!-- This assumes the file content is text. Adjust if the content is different. -->
+    <h1>Contents of Your Text File</h1>
+    <pre id="file-content"></pre>
+    <script>
+        window.onload = function() {
+        fetch('your_text_file.txt') // Replace with your actual file path
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById('file-content').textContent = content;
+            })
+            .catch(error => {
+                console.error('Error loading file:', error);
+            });
+        };
+    </script>
     
 {% endblock %}

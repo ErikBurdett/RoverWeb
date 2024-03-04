@@ -144,15 +144,13 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
-@app.route('/user/<name>/data', methods=['GET', 'POST', 'PUT'])
+@app.route('/user/<name>/data', methods=['POST'])
 def handle_data(name):
-  if request.method == 'POST':
-    if 'file' not in request.files:
-      return 'No file provided', 400
+  uploaded_file = request.files['textFile']
 
-    files = request.files['file']
-    return render_template("data.html", files=files, name=name), 200
-  #return 'Method not allowed', 405
+  files = request.files['file']
+  return render_template("data.html", files=uploaded_file, name=name), 200
+  
 
 #Error Pages
 @app.errorhandler(404)
