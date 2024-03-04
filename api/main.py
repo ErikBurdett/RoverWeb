@@ -162,7 +162,7 @@ def handle_data():
 
     # Handle other HTTP methods (GET, POST) as needed
     # For demonstration purposes, we'll return a message for other methods
-    return 'Method not allowed', 405
+    return request.method, 405
 
 #Error Pages
 @app.errorhandler(404)
