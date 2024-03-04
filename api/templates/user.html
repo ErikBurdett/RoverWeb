@@ -3,13 +3,7 @@
 {% block content %}
 
     <h1>Hello {{ name|capitalize }}</h1>
-    <h2>Data Recieved: {{ data }}</h2>
 
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
+    <a href="{{ url_for('data') }}" class="btn btn-link">View Data</a>
 
 {% endblock %}
