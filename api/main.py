@@ -152,7 +152,7 @@ def handle_data(data):
     return render_template("user.html", data=data)
   except Exception as e:
     print("Error handling data:", e)
-    return "Error handling data", 500
+    return render_template("user.html", data="Error receiving data")
 
 #Error Pages
 @app.errorhandler(404)
