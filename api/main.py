@@ -161,8 +161,17 @@ def handle_data():
           return 'File uploaded successfully', 200
 
     # Handle other HTTP methods (GET, POST) as needed
+    if request.method == 'GET':
+      if 'file' in request.files:
+          file = request.files['file']
+          # Do something with the file, such as saving it to disk or processing it
+          db.uploads.insert_one({
+              "file" : file,
+             "date_created" : datetime.utcnow()
+            })
+          return 'File uploaded successfully', 200
     # For demonstration purposes, we'll return a message for other methods
-    return request.method, 405
+    return request.method, 600
 
 #Error Pages
 @app.errorhandler(404)
