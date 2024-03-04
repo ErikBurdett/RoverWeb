@@ -109,7 +109,7 @@ def login():
   if form.validate_on_submit():
     name = form.name.data
     password = form.password.data
-
+    print("Test")
     # Retrieve user from the database based on the provided name
     user = db.users.find_one({ "name": name })
 
