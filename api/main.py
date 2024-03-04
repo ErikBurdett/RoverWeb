@@ -136,7 +136,7 @@ def logout():
 def index():
   return render_template("index.html")
 
-@app.route('/user/<name>', methods=['GET', 'POST'])
+@app.route('/user/<name>')
 def user(name):
   if 'logged_in' in session:
     return render_template("user.html", name=name)
@@ -144,6 +144,7 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
+@app.route('/user/<name>', methods=['POST'])
 def handle_data(data):
   data = request.json
   
