@@ -148,7 +148,7 @@ def user(name):
 def handle_data(data):
   data = request.json
   print(f"Received data: {data}")
-  return render_template("user.html", data=data)
+  return render_template("data.html", data=data)
 
 #Error Pages
 @app.errorhandler(404)
