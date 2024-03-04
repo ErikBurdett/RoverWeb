@@ -146,7 +146,7 @@ def user(name):
 
 @app.route('/user/<name>/data', methods=['GET', 'POST', 'PUT'])
 def handle_data(name):
-  if request.method == 'PUT':
+  if request.method == 'POST':
     if 'file' not in request.files:
       return 'No file provided', 400
 
