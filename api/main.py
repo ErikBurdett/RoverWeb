@@ -136,7 +136,7 @@ def logout():
 def index():
   return render_template("index.html")
 
-@app.route('/user/<name>')
+@app.route('/user/<name>', methods=['GET', 'POST'])
 def user(name):
   if 'logged_in' in session:
     return render_template("user.html", name=name)
