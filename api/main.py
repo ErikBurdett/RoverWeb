@@ -161,7 +161,7 @@ def handle_data():
           return 'File uploaded successfully', 200
 
     # Handle other HTTP methods (GET, POST) as needed
-    if request.method == 'GET':
+    if request.method == 'PUT':
       if 'file' in request.files:
           file = request.files['file']
           # Do something with the file, such as saving it to disk or processing it
