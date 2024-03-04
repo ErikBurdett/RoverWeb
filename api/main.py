@@ -145,7 +145,7 @@ def user(name):
     return redirect(url_for('login'))
 
 @app.route('/user/<name>/data', methods=['GET', 'POST'])
-def handle_data(data):
+def handle_data():
   data = request.json
   print(f"Received data: {data}")
   return render_template("data.html", data=data)
