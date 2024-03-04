@@ -5,15 +5,4 @@
     <h1>Hello {{ name|capitalize }}</h1>
     <h2>Data Recieved: {{ data }}</h2>
 
-    <!-- 
-    <p id="receivedData"></p> 
-    <script>
-        // Access the received data passed from Flask
-        var receivedData = {{ data | tojson }};
-        
-        // Print the received data to the browser's console
-        console.log("Received data:", receivedData);
-    </script> 
-    -->
-
 {% endblock %}

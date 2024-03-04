@@ -145,14 +145,11 @@ def user(name):
     return redirect(url_for('login'))
 
 def handle_data(data):
-  try:
-    data = request.json
-    # Process the received data
-    print("Received data:", data)
-    return render_template("user.html", data=data)
-  except Exception as e:
-    print("Error handling data:", e)
-    return render_template("user.html", data="Error receiving data")
+  data = request.json
+  
+  # Process the received data
+  print("Received data:", data)
+  return render_template("user.html", data=data)
 
 #Error Pages
 @app.errorhandler(404)
