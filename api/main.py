@@ -148,7 +148,7 @@ def user(name):
 #@app.route('/user/<name>/data', methods=['POST', 'GET'])
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['POST', 'GET'])
 def handle_data():
     if request.method == 'POST':
         if 'file' in request.files:
