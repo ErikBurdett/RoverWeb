@@ -143,11 +143,16 @@ def user(name):
   else:
     flash("You need to log in first.")
     return redirect(url_for('login'))
+
 def handle_data(data):
+  try:
     data = request.json
     # Process the received data
     print("Received data:", data)
     return render_template("user.html", data=data)
+  except Exception as e:
+    print("Error handling data:", e)
+    return "Error handling data", 500
 
 #Error Pages
 @app.errorhandler(404)
