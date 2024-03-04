@@ -2,6 +2,7 @@ from collections import UserString
 from flask import Flask, render_template, flash, request, redirect, url_for, session
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
+from werkzeug.utils import secure_filename
 from wtforms.validators import DataRequired, Regexp, ValidationError
 from flask_sqlalchemy import SQLAlchemy 
 from datetime import datetime
@@ -144,15 +145,24 @@ def user(name):
     flash("You need to log in first.")
     return redirect(url_for('login'))
 
-@app.route('/user/<name>/data', methods=['POST', 'GET'])
+#@app.route('/user/<name>/data', methods=['POST', 'GET'])
+
+
+@app.rout('/upload', methods=['POST'])
 def handle_data(name):
-    uploaded_file = request.files['file']
-    if uploaded_file:
-        file_content = uploaded_file.read().decode('utf-8')
-        return render_template("data.html", file_content=file_content, name=name)
-    else:
-        flash("No file uploaded.")
-        return redirect(url_for('user', name=name))
+    if request.method == 'POST':
+        if 'file' in request.files:
+          file = request.files['file']
+          # Do something with the file, such as saving it to disk or processing it
+          db.uploads.insert_one({
+              "file" : file,
+             "date_created" : datetime.utcnow()
+            })
+          return 'File uploaded successfully', 200
+
+    # Handle other HTTP methods (GET, POST) as needed
+    # For demonstration purposes, we'll return a message for other methods
+    return 'Method not allowed', 405
 
 #Error Pages
 @app.errorhandler(404)
